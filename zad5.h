@@ -3,6 +3,15 @@
 #include <stdlib.h>
 double** calculate(double** A, double** B, int n, char op);
 
+void free_matrix(double **matrix, int n) {
+    if (matrix != NULL) {
+        for (int i = 0; i < n; i++) {
+            free(matrix[i]);
+        }
+        free(matrix);
+    }
+}
+
 static int zad5() {
     int n;
     char op;
@@ -35,8 +44,9 @@ static int zad5() {
         printf("\n");
     }
 
-    for (int i = 0; i < n; i++) { free(A[i]); free(B[i]); free(R[i]); }
-    free(A); free(B); free(R);
+    free_matrix(A, n);
+    free_matrix(B, n);
+    free_matrix(A, n);
 
     return 0;
 }

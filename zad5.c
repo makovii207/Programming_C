@@ -1,9 +1,9 @@
 #include <stdlib.h>
 
 double** calculate(double** A, double** B, int n, char op) {
-    double** R = (double**)malloc(n * sizeof(double*));
+    double **R = (double **) malloc(n * sizeof(double *));
     for (int i = 0; i < n; i++) {
-        R[i] = (double*)malloc(n * sizeof(double));
+        R[i] = (double *) malloc(n * sizeof(double));
     }
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
