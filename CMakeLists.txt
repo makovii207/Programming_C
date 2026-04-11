@@ -9,4 +9,6 @@ add_executable(untitled main.c
         lab4triug.h
         lab4triug.c
         zad4.h
-        )
+        zad5.h
+        zad5.c
+)
