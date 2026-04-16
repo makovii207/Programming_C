@@ -1,6 +1,5 @@
 #pragma once
 #include <stdio.h>
-#include <stdio.h>
 
 static int zad6() {
     FILE *f_in = fopen("people.txt", "r");
