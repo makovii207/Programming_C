@@ -2,17 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 double** calculate(double** A, double** B, int n, char op);
-
-void free_matrix(double **matrix, int n) {
-    if (matrix != NULL) {
-        for (int i = 0; i < n; i++) {
-            free(matrix[i]);
-        }
-        free(matrix);
-    }
-}
-
-static int zad5() {
+void free_matrix(double** matrix, int n);
+double** add_matrices(double** A, double** B, int n);
+double** minus_matrices(double** A, double** B, int n);
+double** mult_matrices(double** A, double** B, int n);
+static int zad6() {
     int n;
     char op;
 
@@ -36,7 +30,19 @@ static int zad5() {
     printf("oper (+, -, *): ");
     scanf(" %c", &op);
 
-    double** R = calculate(A, B, n, op);
+    double** R = NULL;
+    if (op == '+') {
+        R = add_matrices(A, B, n);
+    } else if (op == '-') {
+        R = minus_matrices(A, B, n);
+    } else if (op == '*') {
+        R = mult_matrices(A, B, n);
+    } else {
+        printf("\nОшибка: неизвестная операция!\n");
+        free_matrix(A, n);
+        free_matrix(B, n);
+        return 1;
+    }
 
     printf("\nResult:\n");
     for (int i = 0; i < n; i++) {

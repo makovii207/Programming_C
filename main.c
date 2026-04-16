@@ -3,10 +3,12 @@
 //#include "zad3.h"
 //#include "zad4.h"
 //#include "zad5.h"
-int main(void) {
+#include "zad6.h"
+int main() {
     //zad2();
     //zad3();
     //zad4();
     //zad5();
+    zad6();
     return 0;
 }
