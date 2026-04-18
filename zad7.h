@@ -9,7 +9,7 @@ struct humen {
 static int zad7(){
     int n;
 
-    printf("number of people: ");
+    printf("n: ");
     scanf("%d", &n);
 
     struct humen a[n];

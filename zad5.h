@@ -6,7 +6,7 @@ void free_matrix(double** matrix, int n);
 double** add_matrices(double** A, double** B, int n);
 double** minus_matrices(double** A, double** B, int n);
 double** mult_matrices(double** A, double** B, int n);
-static int zad6() {
+static int zad5() {
     int n;
     char op;
 
@@ -38,7 +38,7 @@ static int zad6() {
     } else if (op == '*') {
         R = mult_matrices(A, B, n);
     } else {
-        printf("\nОшибка: неизвестная операция!\n");
+        printf("\nError1\n");
         free_matrix(A, n);
         free_matrix(B, n);
         return 1;

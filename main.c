@@ -5,6 +5,7 @@
 //#include "zad5.h"
 //#include "zad6.h"
 #include "zad7.h"
+//#include "zad8.h"
 int main() {
     //zad2();
     //zad3();
@@ -12,5 +13,6 @@ int main() {
     //zad5();
     //zad6();
     zad7();
+    //zad8();
     return 0;
 }
