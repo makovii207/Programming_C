@@ -14,4 +14,5 @@ add_executable(untitled main.c
         zad6.h
         zad7.h
         zad8.h
+        zad9.h
 )

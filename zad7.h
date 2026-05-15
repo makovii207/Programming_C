@@ -8,21 +8,27 @@ struct humen {
 };
 static int zad7(){
     int n;
+    FILE *file = fopen("people.txt", "r");
+    if (file == NULL) {
+        printf("Error1\n");
+        return 1;
+    }
 
-    printf("n: ");
-    scanf("%d", &n);
+    if (fscanf(file, "%d", &n) != 1) {
+        printf("Error2\n");
+        fclose(file);
+        return 1;
+    }
 
     struct humen a[n];
     struct humen b[n];
     struct humen temp;
 
-    printf("FIY:\n");
     for (int i = 0; i < n; i++) {
-        printf("%d. ", i + 1);
-        scanf("%s %s %d", a[i].name, a[i].surname, &a[i].year);
+        fscanf(file, "%s %s %d", a[i].name, a[i].surname, &a[i].year);
         b[i] = a[i];
     }
-
+    fclose(file);
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - 1 - i; j++) {
             if (b[j].year > b[j + 1].year) {

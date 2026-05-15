@@ -16,7 +16,6 @@ static int zad6() {
         }
     }
 
-    // Закрываем файлы
     fclose(fin);
     fclose(fout);
 

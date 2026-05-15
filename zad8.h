@@ -2,60 +2,81 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <string.h>
+
+#define MAX_PEOPLE 100
+#define MAX_NAME 100
+
 typedef struct {
-    char name[100];
-    int year;
+    char name[MAX_NAME];
+    int birthYear;
     char gender[10];
     float height;
 } Person;
 
-int sort_order[4];
-int sort_count = 0;
+int priorities[4];
+int priorityCount = 0;
 
-int compare(const void *a, const void *b) {
-    Person *p1 = (Person *)a;
-    Person *p2 = (Person *)b;
+int compare(const void* a, const void* b) {
+    Person* p1 = (Person*)a;
+    Person* p2 = (Person*)b;
 
-    for (int i = 0; i < sort_count; i++) {
-        int res = 0;
-        switch (sort_order[i]) {
-            case 1: res = p1->year - p2->year; break;
-            case 2: res = strcmp(p1->name, p2->name); break;
-            case 3: res = strcmp(p1->gender, p2->gender); break;
-            case 4: if (p1->height < p2->height) res = -1;
-            else if (p1->height > p2->height) res = 1; break;
+    for (int i = 0; i < priorityCount; i++) {
+        int result = 0;
+        switch (priorities[i]) {
+            case 1:
+                result = p1->birthYear - p2->birthYear;
+                break;
+            case 2: // Name
+                result = strcmp(p1->name, p2->name);
+                break;
+            case 3: // Gender
+                result = strcmp(p1->gender, p2->gender);
+                break;
+            case 4: // Height
+                if (p1->height < p2->height) result = -1;
+                else if (p1->height > p2->height) result = 1;
+                break;
         }
-        if (res != 0) return res;
+        if (result != 0) return result;
     }
     return 0;
 }
 
 static int zad8() {
-    FILE *f = fopen("data.txt", "w");
-    fprintf(f, "Ivan_Ivanov 1990 male 1.85\nAnna_Sidorova 1995 female 1.70\n");
-    fprintf(f, "Petr_Petrov 1990 male 1.75\nElena_Kozlova 1995 female 1.65\n");
-    fclose(f);
-
-    Person people[10];
-    int n = 0;
-    f = fopen("data.txt", "r");
-    while (fscanf(f, "%s %d %s %f", people[n].name, &people[n].year, people[n].gender, &people[n].height) != EOF) {
-        n++;
+    FILE* file = fopen("people.txt", "r");
+    if (!file) {
+        printf("Error: Could not open people.txt\n");
+        return 1;
     }
-    fclose(f);
 
-    printf("Sort by: 1-Year, 2-Name, 3-Gender, 4-Height (e.g. 1 4 0):\n");
+    Person people[MAX_PEOPLE];
+    int count = 0;
+
+    while (count < MAX_PEOPLE && fscanf(file, "%s %d %s %f",
+           people[count].name, &people[count].birthYear,
+           people[count].gender, &people[count].height) != EOF) {
+        count++;
+    }
+    fclose(file);
+
+    printf("Select sorting fields in order of priority (e.g., '1 4 0'):\n");
+    printf("1: Year, 2: Name, 3: Gender, 4: Height (0 to finish)\n");
+
     int choice;
-    while (scanf("%d", &choice) && choice != 0 && sort_count < 4) {
-        sort_order[sort_count++] = choice;
+    while (priorityCount < 4) {
+        if (scanf("%d", &choice) != 1 || choice == 0) break;
+        priorities[priorityCount++] = choice;
     }
 
-    qsort(people, n, sizeof(Person), compare);
+    qsort(people, count, sizeof(Person), compare);
 
-    printf("\nSorted Results:\n");
-    for (int i = 0; i < n; i++) {
-        printf("%-15s | %d | %-7s | %.2f m\n",
-               people[i].name, people[i].year, people[i].gender, people[i].height);
+    printf("\n%-20s | %-5s | %-6s | %-5s\n", "Name", "Year", "Gender", "Height");
+    printf("----------------------------------------------------------\n");
+    for (int i = 0; i < count; i++) {
+        printf("%-20s | %-5d | %-6s | %-5.2f\n",
+               people[i].name, people[i].birthYear, people[i].gender, people[i].height);
     }
+
     return 0;
 }
