@@ -15,4 +15,13 @@ add_executable(untitled main.c
         zad7.h
         zad8.h
         zad9.h
+        zad10.h
+        zad11.h
+        11stats.h
+        11stats.c
+        zad12.h
+        zad13.h
+        zad14.h
+        zad15.h
+        zad16.h
 )
